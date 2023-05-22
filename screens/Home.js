@@ -1,36 +1,37 @@
-import {useState,useEffect,useCallback } from 'react';
-import { Text,
-  View,
-  StyleSheet,
-  Image,
-  FlatList,
-  } from 'react-native';
-  import { sampleData } from '../assets/data/sample-data';
-  import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-  import { faUser } from '@fortawesome/free-regular-svg-icons';
-  import * as SplashScreen from 'expo-splash-screen';
-  import * as Font from 'expo-font';
-  import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
-  import { SafeArea } from '../components/SafeArea';
-  
-  
+import { useState,useEffect,useCallback } from "react";
+import { 
+View,
+Text,
+StyleSheet,
+FlatList,
+Image,} from "react-native";
+import { sampleData } from '../assets/data/sample-data';
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font'; 
+import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
+import { SafeArea } from "../components/SafeArea";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons  from 'react-native-vector-icons/Ionicons';
+import { Donate } from "./Donate";
+import { About } from "./About";
+import { Theme } from "../utils/Theme";
 
 
-export function Home() {
-  const [appIsReady, setAppIsReady] =  useState(false);
+const Tab = createBottomTabNavigator();
+
+function Home () {
+  const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
     async function prepare() {
       try {
-        // Pre-load fonts, make any API calls you need to do here
         await Font.loadAsync({Pacifico_400Regular});
-        // Artificially delay for two seconds to simulate a slow loading
-        // experience. Please remove this if you copy and paste the code!
         await new Promise(resolve => setTimeout(resolve, 2000));
       } catch (e) {
         console.warn(e);
       } finally {
-        // Tell the application to render
         setAppIsReady(true);
       }
     }
@@ -40,11 +41,6 @@ export function Home() {
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
-      // This tells the splash screen to hide immediately! If we call this after
-      // `setAppIsReady`, then we may see a blank screen while the app is
-      // loading its initial state and rendering its first pixels. So instead,
-      // we hide the splash screen once we know the root view has already
-      // performed layout.
       await SplashScreen.hideAsync();
     }
   }, [appIsReady]);
@@ -52,74 +48,98 @@ export function Home() {
   if (!appIsReady) {
     return null;
   }
-return(
-<SafeArea>
 
-    <View style={styles.header}>
+  return (
+    <SafeArea>
+      <View style={styles.header} >
         <View style={styles.leftHeader}>
+          <Image 
+          source={require('../assets/charityApp.png')}
+          alt='app logo'
+          style={styles.logo}/>
+          <Text style={styles.brandName}>CharityApp</Text>
+        </View>
 
-        <Image 
-        source={require('../assets/charityApp.png')} 
-        alt='app logo'
-        style={styles.logo}/>
-        <Text style={styles.brandName}>charityApp</Text>
-        </View>
-        <FontAwesomeIcon icon={faUser} color ='blue'  size={36}/>
-        
-    
+        <FontAwesomeIcon icon={faUser} color="#5C469C" size={36}/>
+      </View>
 
-        
-    
-    </View>
-
-    <View style={styles.body}>
-        <View style={styles.actionBlock}>
-        <View style={styles.actionBox}>
-        
-        </View>
-        <View style={styles.actionBox}>
-        
-        </View>
-        <View style={styles.actionBox}>
-        
-        </View>
-        <View style={styles.actionBox}>
-        
-        </View>
+      <View style={styles.body}>
+        <View style={styles.actionBlock}> 
+          <View style={styles.actionBox}>
+            
+          </View>
+          <View style={styles.actionBox}>
+            
+          </View>
+          <View style={styles.actionBox}>
+            
+          </View>
+          <View style={styles.actionBox}>
+            
+          </View>
         </View>
 
         <View style={styles.recent}>
-        <Text style={styles.recentTitle}> recent donation</Text>
+          <Text style={styles.recentTitle}>Recent donations</Text>
 
-        <View style={styles.recentScroll}>
-        <FlatList 
-        data={sampleData}
-        renderItem={({item}) => {
-        return(
-            
-        <View style={styles.recentBlock}>
-        <View style={styles.donationDetails}>
-            <Text style={styles.donationAmount}>₦{item.amount}</Text>
-            <Text style={styles.donationInfo}>{item.time} minutes ago</Text>
+          <View style={styles.recentScroll}>
+            <FlatList 
+            data={sampleData}
+            renderItem={({item}) => {
+              return (
+                <View style={styles.recentBlock}>
+                  <View style={styles.donationDetails}>
+                    <Text style={styles.donationAmount}>₦{item.amount}</Text>
+                    <Text style={styles.donationInfo}>{item.time} minutes ago</Text>
+                  </View>
+    
+                  <Text style={styles.donatedBy}>Donated by {item.email}</Text>
+                </View>
+              )
+            }}
+            key={({item}) => item.id}
+            showsVerticalScrollIndicator={false}/>
+          </View>
         </View>
-
-        <Text style={styles.donationBy}>Donated by {item.email}</Text>
-    </View>
-        )
-        }}
-        key={({item}) => item.id}
-        showsVerticalScrollIndicator={true}/>
-        </View>
-        </View>
-    </View> 
-</SafeArea>
-)
+      </View>
+    </SafeArea>
+  )
 }
 
-const styles=StyleSheet.create({
+export function MyHome ({navigation,route}) {
+  const {firstName,city,scores} = route.params;
+  console.log(firstName);
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'home-sharp' : 'home-outline';
+          } else if (route.name === 'Donate') {
+            iconName = focused ? 'heart' : 'heart-circle-outline';
+          } else if (route.name === 'About') {
+            iconName = focused ? 'information-circle' : 'information-circle-outline';
+          }
+          
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: Theme.colors.purple300,
+        tabBarInactiveTintColor: 'gray',
+      })}
+    >
+      <Tab.Screen name="Home" component={Home} options={{headerShown:false}}/>
+      <Tab.Screen name="Donate" component={Donate} options={{headerShown:false}}/>
+      <Tab.Screen name="About" component={About} options={{headerShown:false}}/>
+    </Tab.Navigator>
+  )
+}
+
+const styles = StyleSheet.create({
   header:{
     flexDirection:'row',
-    justifyContent:'space-between'
+    justifyContent:'space-between',
   },
   leftHeader:{
     flexDirection:'row',
@@ -136,14 +156,13 @@ const styles=StyleSheet.create({
     color:'red',
     fontFamily:'Pacifico_400Regular'
   },
-  headericon:{
+  headerIcon:{
     width:48,
-    height:48,
-
+    height:48
   },
   body:{
     flex:1,
-    
+    marginTop:10
   },
   actionBlock:{
     flex:2.5,
@@ -157,11 +176,10 @@ const styles=StyleSheet.create({
   },
   recent:{
     flex:3.5,
-    margineTop:8,
+    marginTop:8,
     padding:8,
     borderRadius:8,
-    backgroundColor:'#FDE2F3'
-    
+    backgroundColor:'#FDE2F3',
   },
   actionBox:{
     width:'49%',
@@ -182,8 +200,8 @@ const styles=StyleSheet.create({
     marginBottom:3
   },
   recentScroll:{
-    flex:1,
-    flexDirection:'column'
+    flex:1,//new
+    flexDirection:'column',//new
   },
   donationDetails:{
     flexDirection:'row',
@@ -192,13 +210,12 @@ const styles=StyleSheet.create({
   donationAmount:{
     fontSize:20,
     color:'#fff'
-  },donationInfo:{
-    color:'#D4ADFC',
-    fontSize:16
+  },
+  donationInfo:{
+    color:'#D4ADFC'
   },
   donatedBy:{
     color:'#D4ADFC',
     fontSize:16
-  },
+  }
 })
-

@@ -1,14 +1,11 @@
-import { Home } from "./screens/Home";
-import { SafeArea } from "./components/SafeArea";
-import { About } from "./screens/About";
-import {Login} from "./screens/Login"
+import { NavigationContainer } from "@react-navigation/native"
+import { StackNavigation } from "./screens/StackNavigation"
 
 
-
-export default function App() {
+export default function App () {
   return (
-    <>
-    <Login/>
-    </>
+    <NavigationContainer>
+      < StackNavigation/>
+    </NavigationContainer>
   )
 }
