@@ -1,131 +1,122 @@
+import { View,TouchableOpacity,Button,StyleSheet,Text, ImageBackground,} from "react-native";
 import { useState,useCallback,useEffect } from "react";
-import { View,Text,StyleSheet, TouchableOpacity } from "react-native";
 import { SafeArea } from "../components/SafeArea";
-import * as SplashScreen from 'expo-splash-screen'
+import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
-import {Pacifico_400Regular} from "@expo-google-fonts/pacifico";
+import {Pacifico_400Regular} from '@expo-google-fonts/pacifico'
 import { Theme } from "../utils/Theme";
-import { text } from "@fortawesome/fontawesome-svg-core";
+
 
 export function About ({navigation}) {
-  const [appIsReady, setAppIsReady] = useState(false);
+    const [appIsReady, setAppIsReady] = useState(false);
 
-  useEffect(() => {
-    async function prepare() {
-      try {
-        await Font.loadAsync({Pacifico_400Regular});
-        await new Promise(resolve => setTimeout(resolve, 2000));
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        setAppIsReady(true);
+    useEffect(() => {
+      async function prepare() {
+        try {
+          // Pre-load fonts, make any API calls you need to do here
+          await Font.loadAsync({Pacifico_400Regular});
+          // Artificially delay for two seconds to simulate a slow loading
+          // experience. Please remove this if you copy and paste the code!
+          await new Promise(resolve => setTimeout(resolve, 2000));
+        } catch (e) {
+          console.warn(e);
+        } finally {
+          // Tell the application to render
+          setAppIsReady(true);
+        }
       }
+
+      prepare();
+    }, []);
+
+    const onLayoutRootView = useCallback(async () => {
+      if (appIsReady) {
+        // This tells the splash screen to hide immediately! If we call this after
+        // `setAppIsReady`, then we may see a blank screen while the app is
+        // loading its initial state and rendering its first pixels. So instead,
+        // we hide the splash screen once we know the root view has already
+        // performed layout.
+        await SplashScreen.hideAsync();
+      }
+    }, [appIsReady]);
+
+    if (!appIsReady) {
+      return null;
     }
-
-    prepare();
-  }, []);
-
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [appIsReady]);
-
-  if (!appIsReady) {
-    return null;
-  }
     return (
         <SafeArea>
-          <View style={styles.box}>
-
-
-            <View>
-              <Text style={styles.header2}>
-                charityApp
-              </Text>
-              </View>
-
-              <View style={styles.center}>
-                <Text>
-                  Donate to a worthy course 
-                </Text>
-              </View>
-              <View style={styles.header}>
-                <View style={styles.note}>
-                  <Text style={styles.text}>The charity App</Text>
-                  <Text style={styles.text}>Foundation's mission--</Text>
-                  <Text style={styles.text}> unchange since 1913--</Text>
-                  <Text style={styles.text}>is to promote the well</Text>
-                  <Text style={styles.text}>being of humanity</Text>
-                  <Text style={styles.text}>throughtout the world</Text>
-                  <Text style={styles.text}>today the foundation</Text>
-                  <Text style={styles.text}> advances nre frontier's</Text>
-                  <Text style={styles.text}>of science,data,policy</Text>
-                  <Text style={styles.text}>and innovation to solve</Text>
-                  <Text style={styles.text}>global challenges related</Text>
-                  <Text style={styles.text}>to health,food,power</Text>
-                  <Text style={styles.text}>and economic mobility</Text>
+            <View style={styles.color}>
+            <View style={styles.com}>
+                <Text style={styles.title}>Charity App</Text>
+                <Text style={styles.course}>Donate to a worthy course</Text>
+                <View style={styles.border}>
+                    <Text style={styles.text}>
+                    The Charity App
+                    Foundation's mission-unchanged 
+                    since 1913. is to promote the wellbeing 
+                    of humanity throughout the world.
+                    Today the Foundation 
+                    advances new frontiers of 
+                    science, data, policy, and 
+                    innovation to solve global 
+                    challenges related to health, food, power, and 
+                    economic mobility
+                    </Text>
                 </View>
-              </View>
-                    <TouchableOpacity on onPress={()=>navigation.navigate('Donate')}>
-                      <View style={styles.makebox}>
-                        <Text style={styles.text}>Make a Donation</Text>
-                      </View>
-                       </TouchableOpacity>
-                      </View>  
+                <TouchableOpacity onPress={() => navigation.navigate('Donate')}>
+                  <View style={styles.donationBox}>
+                    <Text style={styles.text}>
+                      Make A Donation
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+            
+            </View>
+           
+            </View>
         </SafeArea>
+    );
 
-        
-    )
 }
 
 const styles = StyleSheet.create({
-  box:{
-    backgroundColor:Theme.colors.purple100,
-    alignItems:'center',
-    marginTop:'50%',
-    paddingTop:10,
-    paddingBottom:50,
-    marginLeft:50,
-    marginRight:50,
-  },
-  headers:{
-    backgroundColor:Theme.colors.purple900,
-    borderRadius:5,
-    paddingLeft:10,
-    paddingRight:5,
-    paddingBottom:20
-  },
-  header2:{
-    fontFamily:'Pacifico_400Regular',
-    color:'black',
-    fontSize:Theme.sizes[3],
-    
-  },
-  header:{
-    alignItems:'center',
-  },
-  note:{
-    marginTop:10,
-    backgroundColor:Theme.colors.purple900,
-    paddingHorizontal:10,
-    paddingVertical:15,
-    borderRadius:5,
-    marginBottom:3,
-    marginTop:5
-  },
-  makebox:{
-    backgroundColor:Theme.colors.purple900,
-    paddingHorizontal:35,
-    paddingVertical:15,
-    borderRadius:5,
-    marginBottom:3,
-    marginTop:15
-  },
-  text:{
-    color:'white'
-  },
-  center:{
-    marginBottom:15
-  }
+    color:{
+        flex:1,
+        //backgroundColor:(Theme.colors.purple100)
+    },
+    com:{
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop:50
+    },
+    title:{
+        fontSize:35,
+        fontFamily:'Pacifico_400Regular'
+    },course:{
+        marginTop:15,
+        fontSize:20
+    },
+    border:{
+        borderWidth:0.2,
+        borderRadius:8,
+        marginTop:10,
+        backgroundColor:'blue',
+        padding:30,
+        margin:50
+    },
+    text:{
+        fontSize:20,
+        color:'white'
+    },
+    donationBox:{
+      backgroundColor:Theme.colors.purple900,
+      paddingHorizontal:15,
+      paddingVertical:15,
+      borderRadius:5,
+      marginBottom:3,
+      marginTop:15,
+      justifyContent:'center'
+
+    }
 })

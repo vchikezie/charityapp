@@ -60,11 +60,8 @@ export function Login ({navigation}) {
                 />
                   <View style={style.button}>
                     <Button
-                     mode="contained" onPress={() => navigation.navigate('My Home',{
-                      firstName:'victor',
-                      city:'abuja',
-                      scores:[4,9,9,9]
-                     })}>
+                     mode="contained" 
+                     >
                     Login
                     </Button>
                   </View>
