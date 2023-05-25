@@ -4,6 +4,7 @@ import { View,Text,StyleSheet } from "react-native";
 import {SafeArea } from "../components/SafeArea";
 import { Button,TextInput } from "react-native-paper";
 
+
 export function Create(){
     const {uid} = useContext(AppContext);
     
@@ -47,5 +48,4 @@ const styles = StyleSheet.create({
         color:'gray',
         marginBottom:8
     }
-
 })

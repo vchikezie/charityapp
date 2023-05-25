@@ -5,111 +5,118 @@ import * as Font from 'expo-font';
 import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 import { useState,useEffect,useCallback } from "react";
 import { TextInput,Button } from 'react-native-paper';
+import { Formik } from "formik";
 
-export function Signup () {
-    const [appIsReady, setAppIsReady] = useState(false);
-    const [text, setText] = useState("");
-    const [number, setNumber] = useState("");
+export function Signup ({navigation}) {
+      const [appIsReady, setAppIsReady] = useState(false);
+    
 
-    useEffect(() => {
-
-        async function prepare() {
-          try {
-            await Font.loadAsync({Pacifico_400Regular});
-            await new Promise(resolve => setTimeout(resolve, 2000));
-          } catch (e) {
-            console.warn(e);
-          } finally {
-            setAppIsReady(true);
+      useEffect(() => {
+          async function prepare() {
+            try {
+              await Font.loadAsync({Pacifico_400Regular});
+              await new Promise(resolve => setTimeout(resolve, 2000));
+            } catch (e) {
+              console.warn(e);
+            } finally {
+              setAppIsReady(true);
+            }
           }
+      
+          prepare();
+        }, []);
+      
+        const onLayoutRootView = useCallback(async () => {
+          if (appIsReady) {
+            await SplashScreen.hideAsync();
+          }
+        }, [appIsReady]);
+      
+        if (!appIsReady) {
+          return null;
         }
-    
-        prepare();
-      }, []);
-    
-      const onLayoutRootView = useCallback(async () => {
-        if (appIsReady) {
-          await SplashScreen.hideAsync();
-        }
-      }, [appIsReady]);
-    
-      if (!appIsReady) {
-        return null;
-      }
-    
+      
 
     return(
-        <SafeArea>
-            <View style={style.heding}>
-                <Text style={style.title}>Charity App</Text>
-                <Text style={style.title2}>Create a donator account</Text>
-                <TextInput
-                    style={style.input}
-                    label="Email"
-                    mode="outlined"
-                    value={text}
-                    onChangeText={text => setText(text)}
-                />
-                <TextInput
-                    style={style.input}
-                    label="Password"
-                    mode="outlined"
-                    value={number}
-                    secureTextEntry={true}
-                    onChangeText={number => setNumber(number)}
-                />
-                <TextInput
-                    style={style.input}
-                    label="Confirm password"
-                    mode="outlined"
-                    value={number}
-                    secureTextEntry={true}
-                    onChangeText={number => setNumber(number)}
-                />
-                <View style={style.button}>
-                    <Button mode="contained" onPress={() => console.log('Login')}>
-                    Sign up
-                    </Button>
-                </View>
-                    <View style={style.account}>
-                        <Text >Already have an account? </Text>
-                        <TouchableOpacity>
-                            <Text style={style.sign}>Sign in</Text>
-                        </TouchableOpacity>
-                    </View>
+          <SafeArea>
+              <View style={style.heading}>
+                  <Text style={style.title}>Charity App</Text>
+                  <Text style={style.title2}>Create a donator account</Text>
+      <Formik
+      initialValues={{ email: '',password:'',passwordConfirmation:'' }}
+      onSubmit={(values,action) =>{
+        console.log(values.email);
+      }}
+    >
+      {({ handleChange, handleBlur, handleSubmit, values }) => (
+        <View>
+          <TextInput
+          mode="outlined"
+          label='Email'
+          style={style.input}
+          onChangeText={handleChange('email')}
+          onBlur={handleBlur('email')}
+          value={values.email}
+          />
+          <TextInput
+          mode="outlined"
+          label='password'
+          style={style.input}
+          onChangeText={handleChange('password')}
+          onBlur={handleBlur('password')}
+          value={values.password}
+          />
+          
+          <TextInput
+          mode="outlined"
+          label='confirm password'
+          style={style.input}
+          onChangeText={handleChange('passwordConfirmation')}
+          onBlur={handleBlur('passwordConfirmation')}
+          value={values.confirm}
+          secureTextEntry={true}
+          />
+          <Button 
+          mode="contained"
+          onPress={handleSubmit}
+          contentStyle={{paddingVertical:6,}}
+          style={{marginVertical:12}}>create account</Button>
+        </View>
+      )}
+    </Formik>
+              <View style={style.account}>
+                  <Text >Already have an account? </Text>
+                  <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                      <Text style={style.sign}>Login</Text>
+                  </TouchableOpacity>
               </View>
-          </SafeArea>
+        </View>
+    </SafeArea>
     )
-}
+  }
 
-const style = StyleSheet.create({
-    heding:{ 
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-        marginBottom:280
-        },
-    title:{
-        fontSize:35,
-        fontFamily:'Pacifico_400Regular'
-         },
-    title2:{
-        marginTop:15
-    },
-    input:{
-        marginTop:15,
-        width:300
-    },
-    button:{
-      marginTop:20,
-      width:300,
-      height:70
-    },
-    account:{
-      flexDirection:'row'
-    },
-    sign:{
-      
-      color:'blue'
-    },
-})
+  const style = StyleSheet.create({
+      heading:{ 
+          flex:1,
+          alignItems:'center',
+          justifyContent:'center',
+          marginBottom:280
+          },
+      title:{
+          fontSize:35,
+          fontFamily:'Pacifico_400Regular'
+          },
+      title2:{
+          marginTop:15
+      },
+      input:{
+          marginTop:15,
+          width:300
+      },
+      account:{
+        flexDirection:'row'
+      },
+      sign:{
+        color:'blue'
+      },
+  })   
