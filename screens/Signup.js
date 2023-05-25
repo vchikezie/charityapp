@@ -6,6 +6,16 @@ import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 import { useState,useEffect,useCallback } from "react";
 import { TextInput,Button } from 'react-native-paper';
 import { Formik } from "formik";
+import * as yup from 'yup';
+
+
+const validationRules = yup.object({
+  email:yup.string().required('you must fill this field').min(5).max(36),
+  password:yup.string().required().min(4)
+  .oneOf([yup.ref('passwordConfirmation'),null],'password must match')
+
+});
+
 
 export function Signup ({navigation}) {
       const [appIsReady, setAppIsReady] = useState(false);
@@ -47,35 +57,50 @@ export function Signup ({navigation}) {
       onSubmit={(values,action) =>{
         console.log(values.email);
       }}
+      validationSchema={validationRules}
     >
-      {({ handleChange, handleBlur, handleSubmit, values }) => (
+      {({ handleChange, handleBlur, handleSubmit, values,errors,touched }) => (
         <View>
-          <TextInput
-          mode="outlined"
-          label='Email'
-          style={style.input}
-          onChangeText={handleChange('email')}
-          onBlur={handleBlur('email')}
-          value={values.email}
-          />
-          <TextInput
-          mode="outlined"
-          label='password'
-          style={style.input}
-          onChangeText={handleChange('password')}
-          onBlur={handleBlur('password')}
-          value={values.password}
-          />
+          <View>
+              <TextInput
+              mode="outlined"
+              label='Email'
+              style={style.input}
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              value={values.email}
+              />
+              {touched.email && errors.email ? 
+              <Text style={{color:'red'}}>{errors.email}</Text>
+              :null}
+          </View>
+
+
+          
+          <View>
+              <TextInput
+              mode="outlined"
+              label='password'
+              style={style.input}
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
+              />
+              {touched.password && errors.password ?
+              <Text style={{color:'red'}}>
+                {errors.password}</Text>:null}
+          </View>
           
           <TextInput
-          mode="outlined"
-          label='confirm password'
-          style={style.input}
-          onChangeText={handleChange('passwordConfirmation')}
-          onBlur={handleBlur('passwordConfirmation')}
-          value={values.confirm}
-          secureTextEntry={true}
+            mode="outlined"
+            label='confirm password'
+            style={style.input}
+            onChangeText={handleChange('passwordConfirmation')}
+            onBlur={handleBlur('passwordConfirmation')}
+            value={values.confirm}
+            secureTextEntry={true}
           />
+
           <Button 
           mode="contained"
           onPress={handleSubmit}
