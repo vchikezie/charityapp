@@ -43,25 +43,36 @@ export function Login ({navigation}) {
             <View style={style.heding}>
                 <Text style={style.title}>Charity App</Text>
                 <Text style={style.title2}>Login to your Charity App account</Text>
+                <View>
                 <TextInput
-                    style={style.input}
-                    label="Email"
-                    mode="outlined"
-                    value={text}
-                    onChangeText={text => setText(text)}
-                />
+                          style={style.input}
+                          label="Email"
+                          mode="outlined"
+                          value={text}
+                          onChangeText={text => setText(text)}
+                        />
+                          {touched.email && errors.email ? 
+                      <Text style={{color:'red'}}>{errors.email}</Text>
+                      :null}
+                </View>
+
+                <View>
                 <TextInput
-                    style={style.input}
-                    label="Password"
-                    mode="outlined"
-                    value={number}
-                    secureTextEntry={true}
-                    onChangeText={number => setNumber(number)}
-                />
+                        style={style.input}
+                        label="Password"
+                        mode="outlined"
+                        value={number}
+                        secureTextEntry={true}
+                        onChangeText={number => setNumber(number)}
+                        />
+                        {touched.password && errors.password ?
+                        <Text style={{color:'red'}}>
+                        {errors.password}</Text>:null}
+                </View>
+
                   <View style={style.button}>
                     <Button
-                     mode="contained" 
-                     >
+                     mode="contained">
                     Login
                     </Button>
                   </View>
@@ -72,6 +83,7 @@ export function Login ({navigation}) {
                     </TouchableOpacity>
                   </View>
               </View>
+              
           </SafeArea>
     )
 }
