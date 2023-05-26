@@ -51,9 +51,6 @@ export function Login ({navigation}) {
                           value={text}
                           onChangeText={text => setText(text)}
                         />
-                          {touched.email && errors.email ? 
-                      <Text style={{color:'red'}}>{errors.email}</Text>
-                      :null}
                 </View>
 
                 <View>
@@ -65,9 +62,6 @@ export function Login ({navigation}) {
                         secureTextEntry={true}
                         onChangeText={number => setNumber(number)}
                         />
-                        {touched.password && errors.password ?
-                        <Text style={{color:'red'}}>
-                        {errors.password}</Text>:null}
                 </View>
 
                   <View style={style.button}>
