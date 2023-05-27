@@ -5,11 +5,21 @@ import * as Font from 'expo-font';
 import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 import { useState,useEffect,useCallback } from "react";
 import { TextInput,Button } from 'react-native-paper';
+import * as yup from 'yup';
+import { Formik } from "formik";
+
+
+
+const validationRules = yup.object({
+  email:yup.string().required('you must fill this field').min(5).max(36),
+  password:yup.string().required().min(4)
+  .oneOf([yup.ref('passwordConfirmation'),null],'password must match')
+
+});
+
 
 export function Login ({navigation}) {
-    const [appIsReady, setAppIsReady] = useState(false);
-    const [text, setText] = useState("");
-    const [number, setNumber] = useState("");
+  const [appIsReady, setAppIsReady] = useState(false);
 
     useEffect(() => {
 
@@ -38,51 +48,76 @@ export function Login ({navigation}) {
       }
     
 
-    return(
+      return(
         <SafeArea>
-            <View style={style.heding}>
-                <Text style={style.title}>Charity App</Text>
-                <Text style={style.title2}>Login to your Charity App account</Text>
-                <View>
-                <TextInput
-                          style={style.input}
-                          label="Email"
-                          mode="outlined"
-                          value={text}
-                          onChangeText={text => setText(text)}
-                        />
-                </View>
+          <View style={style.heding}>
+            <Text style={style.title}>Charity App</Text>
+            <Text style={style.title2}>Login to your Charity App account</Text>  
+    <Formik
+    initialValues={{ email: '',password:'' }}
+    onSubmit={(values,action) =>{
+      console.log(values.email);
+    }}
+    validationSchema={validationRules}
+  >
+    {({ handleChange, handleBlur, handleSubmit, values,errors,touched }) => (
+      <View>
 
-                <View>
-                <TextInput
-                        style={style.input}
-                        label="Password"
-                        mode="outlined"
-                        value={number}
-                        secureTextEntry={true}
-                        onChangeText={number => setNumber(number)}
-                        />
-                </View>
+        <View>
+            <TextInput
+            label="Email"
+            mode="outlined"
+            Style={style.input}
+            onChangeText={handleChange('email')}
+            onBlur={handleBlur('email')}
+            value={values.email}
+            />
+            {touched.email && errors.email ? 
+            <Text style={{color:'red'}}>{errors.email}</Text>
+            :null}
+        </View>
 
-                  <View style={style.button}>
-                    <Button
-                     mode="contained">
-                    Login
-                    </Button>
-                  </View>
-                  <View style={style.account}>
-                    <Text >Don't have an account? </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-                      <Text style={style.sign}>Sign up</Text>
-                    </TouchableOpacity>
-                  </View>
-              </View>
-              
-          </SafeArea>
+
+        
+        <View>
+            <TextInput
+            label='password'
+            mode="outlined"
+            style={style.input}
+            onChangeText={handleChange('password')}
+            onBlur={handleBlur('password')}
+            value={values.password}
+            secureTextEntry={true}
+            />
+            {touched.password && errors.password ?
+            <Text style={{color:'red'}}>
+              {errors.password}</Text>:null}
+        </View>
+        
+        <View style={style.button}>
+          <Button 
+          mode="contained"
+          onPress={handleSubmit}>
+            Login
+          </Button>
+        </View>
+
+        
+      </View>
+    )}
+  </Formik>
+            <View style={style.account}>
+                <Text >Already have an account? </Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Text style={style.sign}>Login</Text>
+                </TouchableOpacity>
+            </View>
+      </View>
+  </SafeArea>
     )
-}
+  }
 
-const style = StyleSheet.create({
+  const style = StyleSheet.create({
     heding:{ 
         flex:1,
         alignItems:'center',
