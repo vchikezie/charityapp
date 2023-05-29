@@ -5,7 +5,7 @@ import {SafeArea } from "../components/SafeArea";
 import { Button,TextInput } from "react-native-paper";
 
 
-export function Create(){
+export function Create({navigation}) {
     const {uid} = useContext(AppContext);
     
     return uid !== null ? (
@@ -22,7 +22,7 @@ export function Create(){
             <View style={styles.wrapper}>
             <Text style={styles.subHeader2}>sign in first to create a Fund Raiser</Text>
             <Button mode="contained" 
-            contentStyle={{paddingVertical:4}} onPress={() => navigation.naviagte('Login')}>go to login</Button>
+            contentStyle={{paddingVertical:4}}onPress={() => navigation.navigate('Login')}>go to login</Button>
             </View>
         </SafeArea>
     )

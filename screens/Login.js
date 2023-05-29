@@ -107,9 +107,9 @@ export function Login ({navigation}) {
     )}
   </Formik>
             <View style={style.account}>
-                <Text >Already have an account? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Text style={style.sign}>Login</Text>
+                <Text >Don't Have an account? </Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+                    <Text style={style.sign}>Signup</Text>
                 </TouchableOpacity>
             </View>
       </View>
