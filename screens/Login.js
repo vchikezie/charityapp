@@ -7,8 +7,7 @@ import { useState,useEffect,useCallback } from "react";
 import { TextInput,Button } from 'react-native-paper';
 import * as yup from 'yup';
 import { Formik } from "formik";
-
-
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const validationRules = yup.object({
   email:yup.string().required('you must fill this field').min(5).max(36),
@@ -56,8 +55,9 @@ export function Login ({navigation}) {
     <Formik
     initialValues={{ email: '',password:'' }}
     onSubmit={(values,action) =>{
-      console.log(values.email);
-    }}
+     
+          
+          }}
     validationSchema={validationRules}
   >
     {({ handleChange, handleBlur, handleSubmit, values,errors,touched }) => (
@@ -76,8 +76,6 @@ export function Login ({navigation}) {
             <Text style={{color:'red'}}>{errors.email}</Text>
             :null}
         </View>
-
-
         
         <View>
             <TextInput
@@ -106,6 +104,7 @@ export function Login ({navigation}) {
       </View>
     )}
   </Formik>
+  
             <View style={style.account}>
                 <Text >Don't Have an account? </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
@@ -148,3 +147,5 @@ export function Login ({navigation}) {
       color:'blue'
     },
 })
+
+

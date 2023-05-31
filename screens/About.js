@@ -62,6 +62,7 @@ export function About ({navigation}) {
                     challenges related to health, food, power, and 
                     economic mobility
                     </Text>
+                    
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate('Donate')}>
                   <View style={styles.donationBox}>
@@ -84,19 +85,24 @@ const styles = StyleSheet.create({
         flex:1,
         //backgroundColor:(Theme.colors.purple100)
     },
+
     com:{
         flexDirection:'column',
         justifyContent:'center',
         alignItems:'center',
         marginTop:50
     },
+
     title:{
         fontSize:35,
         fontFamily:'Pacifico_400Regular'
-    },course:{
+    },
+    
+    course:{
         marginTop:15,
         fontSize:20
     },
+
     border:{
         borderWidth:0.2,
         borderRadius:8,
@@ -105,10 +111,12 @@ const styles = StyleSheet.create({
         padding:30,
         margin:50
     },
+
     text:{
         fontSize:20,
         color:'white'
     },
+
     donationBox:{
       backgroundColor:Theme.colors.purple900,
       paddingHorizontal:15,
@@ -117,6 +125,5 @@ const styles = StyleSheet.create({
       marginBottom:3,
       marginTop:15,
       justifyContent:'center'
-
     }
 })

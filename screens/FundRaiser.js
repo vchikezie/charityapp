@@ -18,18 +18,23 @@ export const FundRaiser = () => (
             <Card>
                 <Card.Cover source={require('../assets/app_images/sick.png')}/>      
                 <Card.Title title="NIGERIA,NIG" subtitle="" left={LeftContent} />
+
                 <Card.Content>
-                <Text variant="titleLarge">HELP THE SICK AND CREATE MORE AWARENESS</Text>
-                <Text variant="bodyMedium">support the sick </Text>
+                    <Text variant="titleLarge">HELP THE SICK AND CREATE MORE AWARENESS</Text>
+                    <Text variant="bodyMedium">support the sick </Text>
                 </Card.Content>
+
                 <View>
                     <Text style={styles.first}>__________________________________________________</Text>
                     <Text style={styles.second}> $50 raised - Donation</Text>
                 </View>
+                
+
                 <Card.Actions>
                 <Button>Donate</Button>
                 <Button>Cancel</Button>
                 </Card.Actions>
+                
             </Card>
             </ScrollView>
         </SafeArea>    

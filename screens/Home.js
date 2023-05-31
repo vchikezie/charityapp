@@ -1,6 +1,5 @@
 import { useState,useEffect,useCallback } from "react";
-import { 
-View,
+import {View,
 Text,
 StyleSheet,
 FlatList,TouchableOpacity,
@@ -60,31 +59,31 @@ function Home ({navigation}) {
       </View>
       <View style={styles.body}>
         <View style={styles.actionBlock}> 
-          <TouchableOpacity style={styles.actionBox}>
-            <FontAwesomeIcon icon={faHeartCirclePlus} color={Theme.colors.purple100}
-            size={Theme.sizes[5]}/>
-            <Text style={styles.optionText}>Donate</Text>
-          </TouchableOpacity>
 
-          <TouchableOpacity style={styles.actionBox}>
-            <FontAwesomeIcon icon={faUsersViewfinder} color={Theme.colors.purple100}
-            size={Theme.sizes[5]}/>
-            <Text style={styles.optionText}>Raisers</Text>
-          </TouchableOpacity>
+              <TouchableOpacity style={styles.actionBox}>
+                <FontAwesomeIcon icon={faHeartCirclePlus} color={Theme.colors.purple100}
+                size={Theme.sizes[5]}/>
+                <Text style={styles.optionText}>Donate</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity style={styles.actionBox}>
-            <FontAwesomeIcon icon={faClockRotateLeft} color={Theme.colors.purple100}
-            size={Theme.sizes[5]}/>
-            <Text style={styles.optionText}>History</Text>
-          </TouchableOpacity>
+              <TouchableOpacity style={styles.actionBox}>
+                <FontAwesomeIcon icon={faUsersViewfinder} color={Theme.colors.purple100}
+                size={Theme.sizes[5]}/>
+                <Text style={styles.optionText}>Raisers</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity style={styles.actionBox}onPress={() => navigation.navigate('Create')}>
-            <FontAwesomeIcon icon={faCirclePlus} color={Theme.colors.purple100}
-            size={Theme.sizes[5]}/>
-            <Text style={styles.optionText}>create</Text>
-          </TouchableOpacity>
+              <TouchableOpacity style={styles.actionBox}>
+                <FontAwesomeIcon icon={faClockRotateLeft} color={Theme.colors.purple100}
+                size={Theme.sizes[5]}/>
+                <Text style={styles.optionText}>History</Text>
+              </TouchableOpacity>
 
-       
+              <TouchableOpacity style={styles.actionBox}onPress={() => navigation.navigate('Create')}>
+                <FontAwesomeIcon icon={faCirclePlus} color={Theme.colors.purple100}
+                size={Theme.sizes[5]}/>
+                <Text style={styles.optionText}>create</Text>
+              </TouchableOpacity>
+
         </View>
 
         <View style={styles.recent}>
@@ -97,10 +96,9 @@ function Home ({navigation}) {
               return (
                 <View style={styles.recentBlock}>
                   <View style={styles.donationDetails}>
-                    <Text style={styles.donationAmount}>₦{item.amount}</Text>
-                    <Text style={styles.donationInfo}>{item.time} minutes ago</Text>
+                      <Text style={styles.donationAmount}>₦{item.amount}</Text>
+                      <Text style={styles.donationInfo}>{item.time} minutes ago</Text>
                   </View>
-    
                   <Text style={styles.donatedBy}>Donated by {item.email}</Text>
                 </View>
               )

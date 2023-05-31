@@ -1,4 +1,4 @@
-import { View,TouchableOpacity,Text,StyleSheet,} from "react-native";
+import { View,TouchableOpacity,Text,StyleSheet,Alert} from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -7,6 +7,8 @@ import { useState,useEffect,useCallback } from "react";
 import { TextInput,Button } from 'react-native-paper';
 import { Formik } from "formik";
 import * as yup from 'yup';
+import { auth } from "../sittings/FireBase.sitting";
+import { createUserWithEmailAndPassword,onAuthStateChanged } from "firebase/auth";
 
 
 const validationRules = yup.object({
@@ -55,7 +57,12 @@ export function Signup ({navigation}) {
       <Formik
       initialValues={{ email: '',password:'',passwordConfirmation:'' }}
       onSubmit={(values,action) =>{
-        console.log(values.email);
+        createUserWithEmailAndPassword(auth,values.email,values.password)
+        .then(() => {
+          Alert.alert('notify','account creation was successful',
+          [{Text:'Go to home',onPress:() => navigation.navigate('My Home')}])
+        })
+        .catch(error => console.log(error))     
       }}
       validationSchema={validationRules}
     >
@@ -85,6 +92,7 @@ export function Signup ({navigation}) {
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
+              secureTextEntry={true}
               />
               {touched.password && errors.password ?
               <Text style={{color:'red'}}>
@@ -109,6 +117,7 @@ export function Signup ({navigation}) {
         </View>
       )}
     </Formik>
+    
               <View style={style.account}>
                   <Text >Already have an account? </Text>
                   <TouchableOpacity onPress={() => navigation.navigate('Login')}>
@@ -120,6 +129,7 @@ export function Signup ({navigation}) {
     )
   }
 
+  
   const style = StyleSheet.create({
       heading:{ 
           flex:1,
@@ -127,20 +137,25 @@ export function Signup ({navigation}) {
           justifyContent:'center',
           marginBottom:280
           },
+
       title:{
           fontSize:35,
           fontFamily:'Pacifico_400Regular'
           },
+
       title2:{
           marginTop:15
       },
+
       input:{
           marginTop:15,
           width:300
       },
+
       account:{
         flexDirection:'row'
       },
+
       sign:{
         color:'blue'
       },
