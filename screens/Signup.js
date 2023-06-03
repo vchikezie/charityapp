@@ -1,14 +1,16 @@
+import { useState,useEffect,useCallback,useContext } from "react";
+import { AppContext } from "../sittings/globalVariables";
 import { View,TouchableOpacity,Text,StyleSheet,Alert} from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
-import { useState,useEffect,useCallback } from "react";
 import { TextInput,Button } from 'react-native-paper';
 import { Formik } from "formik";
 import * as yup from 'yup';
 import { auth } from "../sittings/FireBase.sitting";
 import { createUserWithEmailAndPassword,onAuthStateChanged } from "firebase/auth";
+
 
 
 const validationRules = yup.object({
@@ -20,6 +22,7 @@ const validationRules = yup.object({
 
 
 export function Signup ({navigation}) {
+      const {setUid} = useContext(AppContext);
       const [appIsReady, setAppIsReady] = useState(false);
     
 
@@ -58,11 +61,40 @@ export function Signup ({navigation}) {
       initialValues={{ email: '',password:'',passwordConfirmation:'' }}
       onSubmit={(values,action) =>{
         createUserWithEmailAndPassword(auth,values.email,values.password)
-        .then(() => {
-          Alert.alert('notify','account creation was successful',
-          [{Text:'Go to home',onPress:() => navigation.navigate('My Home')}])
-        })
-        .catch(error => console.log(error))     
+        .then(() => onAuthStateChanged(auth,(user) => {
+          setUid(user.uid);// update to the user's UID
+          Alert.alert(
+            'Message',
+            'you account was created!',
+            [{text:'Go to home',onPress: () => navigation.navigate('My Home')}]
+          )
+        }))
+        .catch((error) =>{
+          //custom action for different errors
+          if (error.code == 'auth/invalid-email'){
+            Alert.alert(
+              'Message',
+              'Invalid Email! Try again',
+              [{text:'try again'},]
+            )
+          }else if (error.code == 'auth/email-already-in-use'){
+            Alert.alert(
+              'Message',
+              'an account already exist with the same email',
+              [
+                {text:'Go to Login',onPress: () => navigation.navigate('Login')},
+                {text:'Forgot Password?',onPress: () => navigation.navigate('Rest Password')}
+              ]
+            )
+          }else {
+            Alert.alert(
+              'Message',
+              'Something went wrong',
+              [{text:'Dismiss'},]
+            )
+          }
+
+        })  
       }}
       validationSchema={validationRules}
     >

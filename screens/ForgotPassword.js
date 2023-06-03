@@ -1,6 +1,4 @@
-import { View,TouchableOpacity,Text,StyleSheet,Alert} from "react-native";
-import { useContext } from "react";
-import { AppContext } from "../sittings/globalVariables";
+import { View,TouchableOpacity,Text,StyleSheet,} from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -10,16 +8,16 @@ import { TextInput,Button } from 'react-native-paper';
 import * as yup from 'yup';
 import { Formik } from "formik";
 import { auth } from "../sittings/FireBase.sitting";
-import { getAuth,onAuthStateChanged ,signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const validationRules = yup.object({
   email:yup.string().required('you must fill this field').min(5).max(36),
-  password:yup.string().required().min(4)
 });
 
 
-export function Login ({navigation}) {
-  const {setUid} = useContext(AppContext);
+
+
+export function ForgotPassword ({navigation}) {
   const [appIsReady, setAppIsReady] = useState(false);
 
     useEffect(() => {
@@ -53,38 +51,12 @@ export function Login ({navigation}) {
         <SafeArea>
           <View style={style.heding}>
             <Text style={style.title}>Charity App</Text>
-            <Text style={style.title2}>Login to your Charity App account</Text>  
+            <Text style={style.title2}>Reset Your Passwrod</Text>  
     <Formik
-    initialValues={{ email: '',password:'' }}
+    initialValues={{ email: ''}}
     onSubmit={(values,action) =>{
-      signInWithEmailAndPassword(auth,values.email,values.password)
-      .then(() => onAuthStateChanged(auth,(user) => {
-        setUid(user.uid);// update the user uid on global variables
-        navigation.navigate('My Home');// redirect 
-      }))
-      .catch(error => {
-           //custom action for different errors
-           if (error.code == 'auth/invalid-email'){
-            Alert.alert(
-              'Message',
-              'Incorrect email! try again',
-              [{text:'try again'},]
-            )
-          }else if (error.code == 'auth/wrong-password'|| error.code == 'auth/user-not-found') {
-            Alert.alert(
-              'Message',
-              'Incorrect email or password',
-              [{text:'try again'}]
-            )
-          }else {
-            Alert.alert(
-              'Message',
-              'Something went wrong',
-              [{text:'Dismiss'},]
-            )
-          }
-      })
-
+        // code for forgot password here
+    
       }}
     validationSchema={validationRules}
   >
@@ -104,29 +76,13 @@ export function Login ({navigation}) {
             <Text style={{color:'red'}}>{errors.email}</Text>
             :null}
         </View>
-        
-        <View>
-            <TextInput
-            label='password'
-            mode="outlined"
-            style={style.input}
-            onChangeText={handleChange('password')}
-            onBlur={handleBlur('password')}
-            value={values.password}
-            secureTextEntry={true}
-            />
-            {touched.password && errors.password ?
-            <Text style={{color:'red'}}>
-              {errors.password}</Text>:null}
-        </View>
-        
+
+
         <View style={style.button}>
           <Button 
-          //buttonColor="hotpink"
-          textColor="black"
           mode="contained"
           onPress={handleSubmit}>
-            Login
+            Forgot Password
           </Button>
         </View>
 
@@ -135,9 +91,9 @@ export function Login ({navigation}) {
     )}
   </Formik>
             <View style={style.account}>
-                <Text >Don't Have an account? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-                    <Text style={style.sign}>Signup</Text>
+                <Text >Remembered Your password? </Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Text style={style.sign}>Go to sign</Text>
                 </TouchableOpacity>
             </View>
       </View>
