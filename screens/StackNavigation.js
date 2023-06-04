@@ -21,7 +21,7 @@ export function StackNavigation () {
             <Stack.Screen name='Signup' component={Signup} options={{headerShown:true}} />
             <Stack.Screen name='FundRaiser' component={FundRaiser} options={{headerShown:false}} />
             <Stack.Screen name='Create' component={Create} options={{headerShown:false}} />
-            <Stack.Screen name='Rest Password' component={ForgotPassword} options={{headerShown:false}} />
+            <Stack.Screen name='Reset Password' component={ForgotPassword} options={{headerShown:false}} />
         </Stack.Navigator>
     )
 }
