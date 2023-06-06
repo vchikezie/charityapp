@@ -55,7 +55,14 @@ function Home ({navigation}) {
     <SafeArea>
       <View style={styles.header} >
        <Text style={styles.brandName}>charityapp</Text>
-        <FontAwesomeIcon icon={faUser} color="#5C469C" size={32}/>
+       <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <FontAwesomeIcon 
+          icon={faUser}
+          color="#5C469C" 
+          size={32}
+          on
+         />
+         </TouchableOpacity>
       </View>
       <View style={styles.body}>
         <View style={styles.actionBlock}> 

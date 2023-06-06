@@ -1,27 +1,29 @@
 import { View,TouchableOpacity,Text,StyleSheet,Alert} from "react-native";
-import { useContext } from "react";
-import { AppContext } from "../sittings/globalVariables";
 import { SafeArea } from "../components/SafeArea";
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
-import { useState,useEffect,useCallback } from "react";
+import { useState,useEffect,useCallback,useContext } from "react";
+import { AppContext } from "../sittings/globalVariables";
 import { TextInput,Button } from 'react-native-paper';
 import * as yup from 'yup';
 import { Formik } from "formik";
 import { auth } from "../sittings/FireBase.sitting";
-import { getAuth,onAuthStateChanged ,signInWithEmailAndPassword } from "firebase/auth";
+import {signInWithEmailAndPassword,onAuthStateChanged}  from "firebase/auth"
+
+
 
 const validationRules = yup.object({
-  email:yup.string().required('you must fill this field').min(5).max(36),
-  password:yup.string().required().min(4)
+  email:yup.string().required('you must fill this form').min(5).max(36),
+  password:yup.string().required('Input your Password').min(4)
+
+
 });
 
-
 export function Login ({navigation}) {
-  const {setUid} = useContext(AppContext);
-  const [appIsReady, setAppIsReady] = useState(false);
-
+    const {setUid} = useContext(AppContext)
+    const [appIsReady, setAppIsReady] = useState(false);
+    
     useEffect(() => {
 
         async function prepare() {
@@ -49,43 +51,40 @@ export function Login ({navigation}) {
       }
     
 
-      return(
+    return(
         <SafeArea>
-          <View style={style.heding}>
-            <Text style={style.title}>Charity App</Text>
-            <Text style={style.title2}>Login to your Charity App account</Text>  
-    <Formik
-    initialValues={{ email: '',password:'' }}
-    onSubmit={(values,action) =>{
-      signInWithEmailAndPassword(auth,values.email,values.password)
-      .then(() => onAuthStateChanged(auth,(user) => {
-        setUid(user.uid);// update the user uid on global variables
-        navigation.navigate('My Home');// redirect 
-      }))
-      .catch(error => {
-           //custom action for different errors
-           if (error.code == 'auth/invalid-email'){
-            Alert.alert(
-              'Message',
-              'Incorrect email! try again',
-              [{text:'try again'},]
-            )
-          }else if (error.code == 'auth/wrong-password'|| error.code == 'auth/user-not-found') {
-            Alert.alert(
-              'Message',
-              'Incorrect email or password',
-              [{text:'try again'}]
-            )
-          }else {
-            Alert.alert(
-              'Message',
-              'Something went wrong',
-              [{text:'Dismiss'},]
-            )
-          }
-      })
+            <View style={style.heding}>
+                <Text style={style.title}>Charity App</Text>
+                <Text style={style.title2}>Login to your Charity App account</Text>
 
-      }}
+                <Formik
+                initialValues={{ email: '',password:'' }}
+    onSubmit={(values,action) =>{
+
+      signInWithEmailAndPassword(auth,values.email,values.password)
+        .then(() => onAuthStateChanged(auth,(user) => {setUid(user.uid)
+        navigation.navigate('My Home')}))
+          .catch(error => {
+            if (error.code == 'auth/invalid-email') {
+              Alert.alert(
+                  'message',
+                  'Invalid email/password',
+                  [{text:'Try Again'}]
+              )
+          } else if (error.code == 'auth/wrong-password' || error.code == 'auth/user-not-found'){
+          Alert.alert(
+              'message',
+              'invalid email/password',
+              [{text:'Try Again'}])
+          }else {
+              Alert.alert(
+                  'message',
+                  'Something Went Wrong',
+                  [{text:'Dismiss'}])
+          }
+          })    
+      
+    }}
     validationSchema={validationRules}
   >
     {({ handleChange, handleBlur, handleSubmit, values,errors,touched }) => (
@@ -104,6 +103,8 @@ export function Login ({navigation}) {
             <Text style={{color:'red'}}>{errors.email}</Text>
             :null}
         </View>
+
+
         
         <View>
             <TextInput
@@ -121,31 +122,30 @@ export function Login ({navigation}) {
         </View>
         
         <View style={style.button}>
-          <Button 
-          //buttonColor="hotpink"
-          textColor="black"
+          <Button
+          textColor="black" 
           mode="contained"
           onPress={handleSubmit}>
             Login
           </Button>
         </View>
-
-        
       </View>
     )}
-  </Formik>
-            <View style={style.account}>
-                <Text >Don't Have an account? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-                    <Text style={style.sign}>Signup</Text>
-                </TouchableOpacity>
-            </View>
-      </View>
-  </SafeArea>
+          </Formik>
+                  
+                  <View style={style.account}>
+                    <Text >Don't have an account? </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+                      <Text style={style.sign}>Sign up</Text>
+                    </TouchableOpacity>
+                  </View>
+              </View>
+              
+          </SafeArea>
     )
-  }
+}
 
-  const style = StyleSheet.create({
+const style = StyleSheet.create({
     heding:{ 
         flex:1,
         alignItems:'center',
@@ -176,5 +176,3 @@ export function Login ({navigation}) {
       color:'blue'
     },
 })
-
-

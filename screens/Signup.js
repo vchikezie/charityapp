@@ -142,10 +142,12 @@ export function Signup ({navigation}) {
           />
 
           <Button 
-          mode="contained"
-          onPress={handleSubmit}
-          contentStyle={{paddingVertical:6,}}
-          style={{marginVertical:12}}>create account</Button>
+            mode="contained"
+            onPress={handleSubmit}
+            contentStyle={{paddingVertical:6,}}
+            style={{marginVertical:12}}>create account
+          </Button>
+
         </View>
       )}
     </Formik>

@@ -1,12 +1,14 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { MyHome } from "./Home";
-import { Login } from "./Login";
+import { Login } from "./Login"
 import { About } from './About';
 import { Donate} from "./Donate";
 import { Signup } from './Signup';
 import { FundRaiser } from "./FundRaiser";
 import { Create } from "./Create";
 import { ForgotPassword } from "./ForgotPassword";
+import { CreateProfile } from "./CreateProfile";
+import { Profile } from "./Profile";
 
 
 const Stack = createStackNavigator();
@@ -22,6 +24,8 @@ export function StackNavigation () {
             <Stack.Screen name='FundRaiser' component={FundRaiser} options={{headerShown:false}} />
             <Stack.Screen name='Create' component={Create} options={{headerShown:false}} />
             <Stack.Screen name='Reset Password' component={ForgotPassword} options={{headerShown:false}} />
+            <Stack.Screen name='Create Profile' component={CreateProfile} options={{headerShown:false}} />
+            <Stack.Screen name='Profile' component={Profile} options={{headerShown:false}} />
         </Stack.Navigator>
     )
 }
