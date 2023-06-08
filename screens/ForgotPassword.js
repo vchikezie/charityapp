@@ -1,4 +1,4 @@
-import { View,TouchableOpacity,Text,StyleSheet,} from "react-native";
+import { View,TouchableOpacity,ActivityIndicator,Text,StyleSheet,} from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -19,6 +19,7 @@ const validationRules = yup.object({
 
 export function ForgotPassword ({navigation}) {
   const [appIsReady, setAppIsReady] = useState(false);
+  const [eventActivityIndicator,seteventActivityIndicator]= useState(false);
 
     useEffect(() => {
 
@@ -55,6 +56,8 @@ export function ForgotPassword ({navigation}) {
     <Formik
     initialValues={{ email: ''}}
     onSubmit={(values,action) =>{
+      seteventActivityIndicator(true);
+
         // code for forgot password here
     
       }}

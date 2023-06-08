@@ -1,6 +1,6 @@
 import { useState,useEffect,useCallback,useContext } from "react";
 import { AppContext } from "../sittings/globalVariables";
-import { View,TouchableOpacity,Text,StyleSheet,Alert} from "react-native";
+import { View,TouchableOpacity,ActivityIndicator,Text,StyleSheet,Alert} from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -24,6 +24,7 @@ const validationRules = yup.object({
 export function Signup ({navigation}) {
       const {setUid} = useContext(AppContext);
       const [appIsReady, setAppIsReady] = useState(false);
+      const [eventActivityIndicator,seteventActivityIndicator]= useState(false);
     
 
       useEffect(() => {
@@ -55,11 +56,13 @@ export function Signup ({navigation}) {
     return(
           <SafeArea>
               <View style={style.heading}>
+                  { eventActivityIndicator ? <ActivityIndicator size='small'/> :null}
                   <Text style={style.title}>Charity App</Text>
                   <Text style={style.title2}>Create a donator account</Text>
       <Formik
       initialValues={{ email: '',password:'',passwordConfirmation:'' }}
       onSubmit={(values,action) =>{
+        seteventActivityIndicator(true);
         createUserWithEmailAndPassword(auth,values.email,values.password)
         .then(() => onAuthStateChanged(auth,(user) => {
           setUid(user.uid);// update to the user's UID
@@ -70,6 +73,7 @@ export function Signup ({navigation}) {
           )
         }))
         .catch((error) =>{
+          seteventActivityIndicator(false);
           //custom action for different errors
           if (error.code == 'auth/invalid-email'){
             Alert.alert(
@@ -78,15 +82,17 @@ export function Signup ({navigation}) {
               [{text:'try again'},]
             )
           }else if (error.code == 'auth/email-already-in-use'){
+            seteventActivityIndicator(false);
             Alert.alert(
               'Message',
               'an account already exist with the same email',
               [
                 {text:'Go to Login',onPress: () => navigation.navigate('Login')},
-                {text:'Forgot Password?',onPress: () => navigation.navigate('Rest Password')}
+                {text:'Forgot Password?',onPress: () => navigation.navigate('Reset Password')}
               ]
             )
           }else {
+            seteventActivityIndicator(false);
             Alert.alert(
               'Message',
               'Something went wrong',

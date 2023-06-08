@@ -1,4 +1,4 @@
-import { View,TouchableOpacity,Text,StyleSheet,Alert} from "react-native";
+import { View,TouchableOpacity,ActivityIndicator,Text,StyleSheet,Alert} from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -23,6 +23,7 @@ const validationRules = yup.object({
 export function Login ({navigation}) {
     const {setUid} = useContext(AppContext)
     const [appIsReady, setAppIsReady] = useState(false);
+    const [eventActivityIndicator,seteventActivityIndicator]= useState(false);
     
     useEffect(() => {
 
@@ -54,13 +55,14 @@ export function Login ({navigation}) {
     return(
         <SafeArea>
             <View style={style.heding}>
+                { eventActivityIndicator ? <ActivityIndicator size='small'/> :null}
                 <Text style={style.title}>Charity App</Text>
                 <Text style={style.title2}>Login to your Charity App account</Text>
 
                 <Formik
                 initialValues={{ email: '',password:'' }}
     onSubmit={(values,action) =>{
-
+      seteventActivityIndicator(true);
       signInWithEmailAndPassword(auth,values.email,values.password)
         .then(() => onAuthStateChanged(auth,(user) => {setUid(user.uid)
         navigation.navigate('My Home')}))
@@ -72,11 +74,13 @@ export function Login ({navigation}) {
                   [{text:'Try Again'}]
               )
           } else if (error.code == 'auth/wrong-password' || error.code == 'auth/user-not-found'){
+          seteventActivityIndicator(false);
           Alert.alert(
               'message',
               'invalid email/password',
               [{text:'Try Again'}])
           }else {
+            seteventActivityIndicator(false);
               Alert.alert(
                   'message',
                   'Something Went Wrong',
