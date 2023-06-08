@@ -55,8 +55,8 @@ export function Login ({navigation}) {
     return(
         <SafeArea>
             <View style={style.heding}>
-                { eventActivityIndicator ? <ActivityIndicator size='small'/> :null}
                 <Text style={style.title}>Charity App</Text>
+                { eventActivityIndicator ? <ActivityIndicator size='small'/> :null}
                 <Text style={style.title2}>Login to your Charity App account</Text>
 
                 <Formik

@@ -1,27 +1,46 @@
-import { useContext, } from "react";
+import { useContext,useEffect, useState } from "react";
+import { View,StyleSheet } from "react-native";
 import { AppContext } from "../sittings/globalVariables";
-import { StyleSheet } from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import { Theme } from "../utils/Theme";
 import { Button } from "react-native-paper";
-
-
+import { db } from "../sittings/FireBase.sitting";
+import { getDoc,doc } from "firebase/firestore";
 
 export function Profile ({navigation}) {
     const {uid} = useContext(AppContext);
+    //update usestate after data is fetched
+    const [userRecords,setUserRecords] = useState({});
+
     console.log(uid);
+
+    //fetch data after component is loaded
+    useEffect(() => {
+        const handleGetUserRecords = async () => {
+            const snapShot = await getDoc(doc(db,'users',uid));
+
+            setUserRecords(snapShot.data());
+        }
+        handleGetUserRecords();
+
+    }, []);
+   // console.log(userRecords);//delete after testing
+
+    
     return (
         <SafeArea>
-            <Button onPress={() => navigation.navigate('Create Profile')}> Create Profile</Button>
+            <View >
 
+            </View>
         </SafeArea>
     )
 }
 
 const styles=StyleSheet.create({
-    title:{
-        color:Theme.colors.brown300,
-        fontSize:Theme.sizes[4]
+    container:{
+        flex:1,
+        backgroundColor:Theme.colors.lime100,
     }
+  
 })
 
