@@ -129,6 +129,7 @@ export function Login ({navigation}) {
           <Button
           textColor="black" 
           mode="contained"
+          buttonColor="gray"
           onPress={handleSubmit}>
             Login
           </Button>

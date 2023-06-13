@@ -9,6 +9,7 @@ import { Create } from "./Create";
 import { ForgotPassword } from "./ForgotPassword";
 import { CreateProfile } from "./CreateProfile";
 import { Profile } from "./Profile";
+import { UpdateProfile } from "./UpdateProfile";
 
 
 const Stack = createStackNavigator();
@@ -26,6 +27,7 @@ export function StackNavigation () {
             <Stack.Screen name='Reset Password' component={ForgotPassword} options={{headerShown:false}} />
             <Stack.Screen name='Create Profile' component={CreateProfile} options={{headerShown:false}} />
             <Stack.Screen name='Profile' component={Profile} options={{headerShown:false}} />
+            <Stack.Screen name='UpdateProfile' component={UpdateProfile} options={{headerShown:false}} />
         </Stack.Navigator>
     )
 }
