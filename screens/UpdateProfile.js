@@ -51,7 +51,6 @@ export function UpdateProfile ({navigation}) {
          })
          .catch(e =>{
             setModalVisible(false)// start activiyIndicator
-
          })
     }
     //console.log(userRecords);//delete after testing
@@ -156,13 +155,13 @@ export function UpdateProfile ({navigation}) {
              
         
                 <Button
-                buttonColor={Theme.colors.gray200}
-                mode="contained"
-                onPress={handleSubmit}
-                contentStyle={{paddingVertical:6}}
-                style={{width:'100%',marginTop:6}}>
-                   UPDATE PROFILE NOW
-                </Button>
+                    buttonColor={Theme.colors.gray200}
+                    mode="contained"
+                    onPress={handleSubmit}
+                    contentStyle={{paddingVertical:6}}
+                    style={{width:'100%',marginTop:6}}>
+                    UPDATE PROFILE NOW
+                </Button> 
             </View>
             )}
         </Formik>
