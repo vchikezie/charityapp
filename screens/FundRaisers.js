@@ -3,7 +3,7 @@ import { StyleSheet,View,FlatList } from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import { Button, Card, Text } from 'react-native-paper';
 import { Theme } from "../utils/Theme";
-import { db } from "../sittings/FireBase.sitting";
+import { db } from "../settings/FireBase.setting";
 import { getDocs,collection } from "firebase/firestore";
 import { numberWithCommas } from "../utils/NumberWithCommas";
 

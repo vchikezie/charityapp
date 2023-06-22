@@ -1,11 +1,11 @@
 import { useContext,useState } from "react";
-import { AppContext } from "../sittings/globalVariables";
+import { AppContext } from "../settings/globalVariables";
 import { View,Text,StyleSheet,Alert } from "react-native";
 import {SafeArea } from "../components/SafeArea";
 import { Button,TextInput } from "react-native-paper";
 import * as yup from 'yup';
 import { Formik } from "formik";
-import { db } from "../sittings/FireBase.sitting";
+import { db } from "../settings/FireBase.setting";
 import { addDoc,collection } from "firebase/firestore";
 import { UseActivityIndicator } from "../components/ActivityIndicator";
 

@@ -8,7 +8,7 @@ import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 import { TextInput,Button } from 'react-native-paper';
 import { Formik } from "formik";
 import * as yup from 'yup';
-import { auth } from "../sittings/FireBase.sitting";
+import { auth } from "../settings/FireBase.setting";
 import { createUserWithEmailAndPassword,onAuthStateChanged } from "firebase/auth";
 
 

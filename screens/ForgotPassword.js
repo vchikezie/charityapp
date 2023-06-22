@@ -7,7 +7,7 @@ import { useState,useEffect,useCallback } from "react";
 import { TextInput,Button } from 'react-native-paper';
 import * as yup from 'yup';
 import { Formik } from "formik";
-import { auth } from "../sittings/FireBase.sitting";
+import { auth } from "../settings/FireBase.setting";
 import { sendPasswordResetEmail } from "firebase/auth";
 
 const validationRules = yup.object({

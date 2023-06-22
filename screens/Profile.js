@@ -4,7 +4,7 @@ import { StyleSheet,SafeAreaView,Image,View,Text,ScrollView} from "react-native"
 import { SafeArea } from "../components/SafeArea";
 import { Theme } from "../utils/Theme";
 import { Button } from "react-native-paper";
-import {db }  from "../sittings/FireBase.sitting"
+import {db }  from "../settings/FireBase.setting"
 import { getDoc,doc } from "firebase/firestore";
 
 

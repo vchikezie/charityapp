@@ -13,7 +13,7 @@ import Ionicons  from 'react-native-vector-icons/Ionicons';
 import { History } from "./History";
 import { About } from "./About";
 import { Theme } from "../utils/Theme";
-import { db } from "../sittings/FireBase.sitting";
+import { db } from "../settings/FireBase.setting";
 import { collection,getDoc,getDocs,doc,query,orderBy,limit } from "firebase/firestore";
 import { numberWithCommas } from "../utils/NumberWithCommas";
 import { toDateTime } from "../utils/timestampConversion";

@@ -4,11 +4,11 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 import { useState,useEffect,useCallback,useContext } from "react";
-import { AppContext } from "../sittings/globalVariables";
+import { AppContext } from "../settings/globalVariables";
 import { TextInput,Button } from 'react-native-paper';
 import * as yup from 'yup';
 import { Formik } from "formik";
-import { auth } from "../sittings/FireBase.sitting";
+import { auth } from "../settings/FireBase.setting";
 import { signInWithEmailAndPassword,onAuthStateChanged} from "firebase/auth";
 
 

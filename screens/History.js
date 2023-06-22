@@ -1,8 +1,8 @@
 import { useState,useEffect,useContext } from "react";
-import { AppContext } from "../sittings/globalVariables";
+import { AppContext } from "../settings/globalVariables";
 import { View,Text,StyleSheet,FlatList } from "react-native";
 import { SafeArea } from "../components/SafeArea";
-import { db } from "../sittings/FireBase.sitting";
+import { db } from "../settings/FireBase.setting";
 import { getDocs,collection,query,where,orderBy } from "firebase/firestore";
 import { numberWithCommas } from "../utils/NumberWithCommas";
 import { toDateTime } from "../utils/timestampConversion";

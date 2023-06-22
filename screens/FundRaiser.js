@@ -3,7 +3,7 @@ import { StyleSheet,View,ScrollView } from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import { Button, Card, Text,TextInput } from 'react-native-paper';
 import { Theme } from "../utils/Theme";
-import { db } from "../sittings/FireBase.sitting";
+import { db } from "../settings/FireBase.setting";
 import { getDoc,doc } from "firebase/firestore";
 import { Formik } from 'formik';
 import * as yup from 'yup';

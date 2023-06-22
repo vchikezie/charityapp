@@ -5,7 +5,7 @@ import { SafeArea } from "../components/SafeArea";
 import { db } from "../sittings/FireBase.sitting";
 import { addDoc,collection } from "firebase/firestore";
 import  { Paystack }  from 'react-native-paystack-webview';
-import { publicKey,secretKey } from "../sittings/payStack.sitting";
+import { publicKey,secretKey } from "../settings/payStack.setting";
 import { MyHome } from "./Home";
 
 export function Pay ({navigation,route}) {
