@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native"
 import { StackNavigation } from "./screens/StackNavigation";
-import { AppProvider } from "./sittings/globalVariables";
+import { AppProvider } from "./settings/globalVariables";
 
 export default function App () {
   return (
