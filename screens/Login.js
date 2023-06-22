@@ -16,8 +16,6 @@ import {signInWithEmailAndPassword,onAuthStateChanged}  from "firebase/auth"
 const validationRules = yup.object({
   email:yup.string().required('you must fill this form').min(5).max(36),
   password:yup.string().required('Input your Password').min(4)
-
-
 });
 
 export function Login ({navigation}) {
@@ -123,6 +121,13 @@ export function Login ({navigation}) {
             {touched.password && errors.password ?
             <Text style={{color:'red'}}>
               {errors.password}</Text>:null}
+              
+              <View style={style.forgotpass}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Reset Password')}>
+                      <Text style={style.forgot}>ForgotPassword ?</Text>
+                    </TouchableOpacity>
+
+                  </View>
         </View>
         
         <View style={style.button}>
@@ -138,19 +143,12 @@ export function Login ({navigation}) {
     )}
           </Formik>
                   <View style={style.account}>
-                   
-
                     <Text >Don't have an account? </Text>
-
-                    <TouchableOpacity onPress={() => navigation.navigate('Reset Password')}>
-                      <Text style={{padding:10}}> Forgot password? </Text>
-                    </TouchableOpacity>
-
                     <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
                       <Text style={style.sign}>Sign up</Text>
                     </TouchableOpacity>
-                    
                   </View>
+                
               </View>
               
           </SafeArea>
@@ -162,7 +160,7 @@ const style = StyleSheet.create({
         flex:1,
         alignItems:'center',
         justifyContent:'center',
-        marginBottom:280
+        marginBottom:280, 
         },
     title:{
         fontSize:35,
@@ -180,8 +178,17 @@ const style = StyleSheet.create({
       width:300,
       height:70
     },
+    forgotpass:{
+      alignItems:'flex-end',
+      padding:4,
+      justifyContent:'center',
+    },
     account:{
-      flexDirection:'row'
+      flexDirection:'row',
+      padding:15,
+    },
+    forgot:{
+      color:'blue'
     },
     sign:{
       

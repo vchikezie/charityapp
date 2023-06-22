@@ -180,14 +180,14 @@ export function UpdateProfile ({navigation}) {
 const styles=StyleSheet.create({
    container:{
       flex:1,
-     // backgroundColor:Theme.colors.lime300,
+      //backgroundColor:Theme.colors.lime300,
    },
    headerImage:{
-   flex:2,
-      height:'100%',
-      width:'300%',
-      resizeMode:'contain',
-      alignSelf:'center',
+    flex:2,
+    height:'100%',
+    width:'300%',
+    resizeMode:'contain',
+    alignSelf:'center',
    },
    body:{
       flex:4,

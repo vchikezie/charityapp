@@ -67,7 +67,7 @@ export function Profile ({navigation}) {
                style={{borderRadius:6}} 
                textColor="white"
                buttonColor={Theme.colors.gray200}
-               onPress={() => navigation.navigate('UpdateProfile')}>
+               onPress={() => navigation.navigate('Update Profile')}>
                   Update profile
                </Button>
          </View>

@@ -46,7 +46,7 @@ export function Create({navigation}) {
                 'Message',
                 'Fund Raiser Created!!',
                 [
-                    {text:'Go to Raisers',onPress:() => navigation.navigate('FundRaiser')},
+                    {text:'Go to Raisers',onPress:() => navigation.navigate('FundRaisers')},
                     {text:'dismiss',},
                 ]
             )

@@ -1,4 +1,4 @@
-import { View,TouchableOpacity,ActivityIndicator,Text,StyleSheet,} from "react-native";
+import { View,TouchableOpacity,ActivityIndicator,Text,StyleSheet, Alert,} from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -8,7 +8,7 @@ import { TextInput,Button } from 'react-native-paper';
 import * as yup from 'yup';
 import { Formik } from "formik";
 import { auth } from "../sittings/FireBase.sitting";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 const validationRules = yup.object({
   email:yup.string().required('you must fill this field').min(5).max(36),
@@ -56,10 +56,34 @@ export function ForgotPassword ({navigation}) {
     <Formik
     initialValues={{ email: ''}}
     onSubmit={(values,action) =>{
+      // code for forgot password here
       seteventActivityIndicator(true);
-
-        // code for forgot password here
-    
+      sendPasswordResetEmail(auth,values.email)
+      .then
+      (() => {Alert.alert(
+        'message',
+        'we have sent a verification code to your email',
+      [{text:'go to Login',onPress:() => navigation.navigate('Login')}])})
+      .catch(error =>  {if (error.code == 'auth/invalid-email') {
+        seteventActivityIndicator(false);
+        Alert.alert(
+            'message',
+            'Invalid email/password',
+            [{text:'Try Again'}]
+        )
+    } else if (error.code == 'auth/wrong-password' || error.code == 'auth/user-not-found'){
+      seteventActivityIndicator(false);
+    Alert.alert(
+        'message',
+        'invalid email/password',
+        [{text:'Try Again'}])
+    }else {
+      seteventActivityIndicator(false);
+        Alert.alert(
+            'message',
+            'Something Went Wrong',
+            [{text:'Dismiss'}])}
+    })
       }}
     validationSchema={validationRules}
   >
@@ -85,7 +109,7 @@ export function ForgotPassword ({navigation}) {
           <Button 
           mode="contained"
           onPress={handleSubmit}>
-            Forgot Password
+            Reset Password
           </Button>
         </View>
 

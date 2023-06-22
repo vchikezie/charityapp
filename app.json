@@ -4,10 +4,10 @@
     "slug": "charityapp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/myapp_adaptive-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/myapp_splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/myapp_adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.vchikezie.charityapp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/myapp_favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5e9ef900-7e7c-4878-8f9d-ec612ab1bd91"
+      }
     }
   }
 }
