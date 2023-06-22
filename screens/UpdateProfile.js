@@ -6,7 +6,7 @@ import { Theme } from "../utils/Theme";
 import { Button,TextInput } from "react-native-paper";
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import {db }  from "../sittings/FireBase.sitting"
+import { db } from "../settings/FireBase.setting";
 import { getDoc,doc,updateDoc} from "firebase/firestore";
 import { UseActivityIndicator } from "../components/ActivityIndicator";
 
