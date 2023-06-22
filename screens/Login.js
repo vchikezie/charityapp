@@ -9,7 +9,7 @@ import { TextInput,Button } from 'react-native-paper';
 import * as yup from 'yup';
 import { Formik } from "formik";
 import { auth } from "../sittings/FireBase.sitting";
-import {signInWithEmailAndPassword,onAuthStateChanged}  from "firebase/auth"
+import { signInWithEmailAndPassword,onAuthStateChanged} from "firebase/auth";
 
 
 
