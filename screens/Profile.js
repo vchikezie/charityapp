@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../sittings/globalVariables";
+import { AppContext } from "../settings/globalVariables";
 import { StyleSheet,SafeAreaView,Image,View,Text,ScrollView} from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import { Theme } from "../utils/Theme";

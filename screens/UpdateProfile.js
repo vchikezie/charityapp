@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../sittings/globalVariables";
-import { StyleSheet,Image,View,Text,ActivityIndicator,ScrollView,Alert,Modal,Pressable} from "react-native";
-import { SafeArea } from "../components/SafeArea";
+import { AppContext } from "../settings/globalVariables";
+import { StyleSheet,Image,View,Text,ScrollView} from "react-native";
 import { Theme } from "../utils/Theme";
 import { Button,TextInput } from "react-native-paper";
 import { Formik } from 'formik';

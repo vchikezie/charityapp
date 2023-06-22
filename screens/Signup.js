@@ -1,5 +1,5 @@
 import { useState,useEffect,useCallback,useContext } from "react";
-import { AppContext } from "../sittings/globalVariables";
+import { AppContext } from "../settings/globalVariables";
 import { View,TouchableOpacity,ActivityIndicator,Text,StyleSheet,Alert} from "react-native";
 import { SafeArea } from "../components/SafeArea";
 import * as SplashScreen from 'expo-splash-screen';

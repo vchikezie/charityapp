@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { AppContext } from "../sittings/globalVariables";
+import { AppContext } from "../settings/globalVariables";
 import { StyleSheet,View,Alert } from "react-native";
 import { SafeArea } from "../components/SafeArea";
-import { db } from "../sittings/FireBase.sitting";
+import { db } from "../settings/FireBase.setting";
 import { addDoc,collection } from "firebase/firestore";
 import  { Paystack }  from 'react-native-paystack-webview';
 import { publicKey,secretKey } from "../settings/payStack.setting";
-import { MyHome } from "./Home";
+
 
 export function Pay ({navigation,route}) {
     const {uid,email} = useContext(AppContext);

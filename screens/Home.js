@@ -1,5 +1,5 @@
 import { useState,useEffect,useCallback,useContext } from "react";
-import { AppContext } from "../sittings/globalVariables";
+import { AppContext } from "../settings/globalVariables";
 import { View,Text,StyleSheet,FlatList,TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
