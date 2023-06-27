@@ -3,7 +3,7 @@ import { useState,useCallback,useEffect } from "react";
 import { SafeArea } from "../components/SafeArea";
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
-import {Pacifico_400Regular} from '@expo-google-fonts/pacifico'
+import {Pacifico_400Regular} from '@expo-google-fonts/pacifico';
 import { Theme } from "../utils/Theme";
 
 
@@ -51,16 +51,16 @@ export function About ({navigation}) {
                 <Text style={styles.course}>Donate to a worthy course</Text>
                 <View style={styles.border}>
                     <Text style={styles.text}>
-                    The Charity App
-                    Foundation's mission-unchanged 
-                    since 1913. is to promote the wellbeing 
-                    of humanity throughout the world.
-                    Today the Foundation 
-                    advances new frontiers of 
-                    science, data, policy, and 
-                    innovation to solve global 
-                    challenges related to health, food, power, and 
-                    economic mobility
+                      The Charity App
+                      Foundation's mission-unchanged 
+                      since 1913. is to promote the wellbeing 
+                      of humanity throughout the world.
+                      Today the Foundation 
+                      advances new frontiers of 
+                      science, data, policy, and 
+                      innovation to solve global 
+                      challenges related to health, food, power, and 
+                      economic mobility
                     </Text>
                     
                 </View>
