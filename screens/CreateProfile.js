@@ -10,7 +10,7 @@ import { setDoc,doc} from "firebase/firestore";
 
 
 
-
+// use for the login and signup button 
 const validationRules = yup.object({
     fName:yup.string().required('required field',),
     lName:yup.string().required('required field',),

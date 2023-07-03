@@ -12,7 +12,7 @@ import { auth } from "../settings/FireBase.setting";
 import { createUserWithEmailAndPassword,onAuthStateChanged } from "firebase/auth";
 
 
-
+// use for the login and signup button 
 const validationRules = yup.object({
   email:yup.string().required('you must fill this field').min(5).max(36),
   password:yup.string().required().min(4)

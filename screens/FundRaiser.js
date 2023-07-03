@@ -9,6 +9,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { numberWithCommas } from "../utils/NumberWithCommas";
 
+// use for the login and signup button 
 const validationRules = yup.object({
     amount:yup.number().required().min(100),
 });

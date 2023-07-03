@@ -10,6 +10,7 @@ import { Formik } from "formik";
 import { auth } from "../settings/FireBase.setting";
 import { sendPasswordResetEmail } from "firebase/auth";
 
+// use for the login and signup button 
 const validationRules = yup.object({
   email:yup.string().required('you must fill this field').min(5).max(36),
 });

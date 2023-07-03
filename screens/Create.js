@@ -9,7 +9,7 @@ import { db } from "../settings/FireBase.setting";
 import { addDoc,collection } from "firebase/firestore";
 import { UseActivityIndicator } from "../components/ActivityIndicator";
 
-
+// use for the login and signup button 
 const validationRules = yup.object({
     title:yup.string().required('required field',),
     desc:yup.string().required('required field',),
