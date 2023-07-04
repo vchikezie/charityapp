@@ -76,7 +76,7 @@ export function About ({navigation}) {
            
             </View>
         </SafeArea>
-    );
+  );
 
 }
 
