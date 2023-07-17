@@ -25,7 +25,7 @@ export function Pay ({navigation,route}) {
                 'Message',
                 'Your donation was successful!!',
                 [
-                    {text:'Go to Home',onPress:() => navigation.navigate('My Home')},
+                    {text:'Go to Home',onPress:() => navigation.navigate('My Home')}, 
                     {text:'Go to History',onPress:() => navigation.navigate('History')},
                 ]
             )   
